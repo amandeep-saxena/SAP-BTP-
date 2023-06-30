@@ -3,9 +3,8 @@ using addmin from '../db/schema';
 
 service MyService {
 
-    entity invoice as projection on addmin.invoice;
+    entity invoice  as projection on addmin.invoice;
     //entity add as select from addmin.;
-
 
     entity readDATA {
 
@@ -35,7 +34,21 @@ service MyService {
         CODE : Integer;
     }
 
+    // entity  uplodeFile {
+    //     NAME : String;
+    //     CODE : Integer;
+
+    // }
+
+
     action addData(data : String) returns {
         Status : Integer
     };
+    action ExcelUpload(data : String) returns {
+        Status : Integer
+    };
+
+     action upload() returns {
+        returnsType : Integer;
+     };
 }

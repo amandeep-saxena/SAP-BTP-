@@ -9,10 +9,23 @@ class MyService extends cds.ApplicationService {
 
         const { invoice } = cds.entities('addmin');
 
+
+
         this.on('READ', 'readDATA', async (req) => {
             let add = await SELECT.from(invoice)
             console.log(JSON.stringify(add))
             return add;
+            // let add = await SELECT.one.from(invoice).where({ NAME: "dep" })
+            //     .columns({NAME})
+            // return add;
+
+            // let  one = await SELECT.one.from (invoice)
+            // return one;
+
+
+
+
+
         })
 
         this.on('READ', 'writeDATA', async (req) => {
@@ -43,19 +56,46 @@ class MyService extends cds.ApplicationService {
         })
 
         this.on('READ', 'deleteDATA', async (req) => {
-            await DELETE.from(invoice).where({CODE : 12344});
+            await DELETE.from(invoice).where({ CODE: 1234 });
             let add = await SELECT.from(invoice)
             // console.log(JSON.stringify(add))
             return add;
         })
-    
-        this.on('READ','updateDATA' , async (req) =>{
-            await UPDATE.from(invoice).set({ NAME: 'NAME' }).where({ NAME: 'ram' });
-            const updatedData = await SELECT.from(invoice).where({ NAME: 'Updated Name' });
 
-      // Return the updated data
-      return updatedData;
+        this.on('READ', 'updateDATA', async (req) => {
+            // await UPDATE.from(invoice).set({ NAME: "div" }).where({ NAME: "ram" });
+            // // const updatedData = await SELECT.from(invoice).where({ 'NAME': 'Updated Name' });
+            //  let  one = await SELECT.one.from (invoice)
+            //  return one;
+            await (UPDATE(invoice).set({ NAME: 'Updated Name' }).where({ NAME: 'ram' }));
+
+
+            let add = await SELECT.from(invoice)
+            // console.log(JSON.stringify(add))
+            return add;
+
         })
+
+
+
+        this.on('ExcelUpload', async (req) => {
+            const reqdata = req.data;
+            console.log("reqdata",reqdata)
+        
+                const APPP = await  INSERT.into(invoice).entries({ NAME, WORK, CODE })
+
+                console.log(APPP);
+                
+            
+                // console.error('File upload failed:', error);
+                // return { error: 'File uploa')
+            return {Status :201}
+        })
+
+
+
+
+
 
 
         await super.init();
